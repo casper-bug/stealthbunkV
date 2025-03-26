@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -103,16 +103,25 @@ button:hover {
     gap: 10px;
     margin-bottom: 15px;
     align-items: center;
-    flex-wrap: wrap;
     background: var(--bg-tertiary);
     padding: 15px;
     border-radius: 12px;
     transition: all 0.3s ease;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .subject-entry:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    margin-right: 10px;
 }
 
 .subject-controls {
@@ -140,8 +149,9 @@ button:hover {
 .small-input {
     width: 60px;
     padding: 8px;
-    margin: 0 5px;
+    margin-left: 5px;
     max-width: 100%;
+    flex-shrink: 0;
 }
 
 .color-indicator {
@@ -268,6 +278,9 @@ button:hover {
     z-index: 1000;
     align-items: center;
     justify-content: center;
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .subject-picker-content {
@@ -276,7 +289,11 @@ button:hover {
     border-radius: 12px;
     width: 90%;
     max-width: 600px;
+    max-height: 80vh;
     box-shadow: var(--card-shadow);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 .subject-list {
@@ -284,6 +301,9 @@ button:hover {
     flex-wrap: wrap;
     gap: 5px;
     margin: 15px 0;
+    overflow-y: auto;
+    flex: 1;
+    padding-bottom: 10px;
 }
 
 .subject-option {
@@ -324,6 +344,11 @@ button:hover {
     border: 1px dashed var(--text-secondary);
     justify-content: center;
     color: var(--text-secondary);
+}
+
+.subject-picker-content > button {
+    margin-top: 15px;
+    align-self: flex-end;
 }
 
 /* Period controls */
@@ -382,6 +407,24 @@ label {
     margin-right: 5px;
 }
 
+/* Footer styles */
+footer {
+    margin-top: 30px;
+    text-align: center;
+    padding: 20px 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+footer a {
+    color: var(--accent-secondary);
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
 /* Media Queries for Mobile Optimization */
 @media only screen and (max-width: 768px) {
     h1 {
@@ -398,21 +441,16 @@ label {
     }
 
     .subject-entry {
-        flex-direction: row;
-        align-items: center;
         padding: 10px;
         gap: 8px;
     }
-
-    .subject-entry input {
-        width: auto;
-        margin-bottom: 0;
-        flex: 1;
+    
+    .input-group {
+        margin-right: 5px;
     }
-
+    
     .small-input {
-        width: 60px;
-        max-width: 100%;
+        width: 50px;
     }
 
     .timetable-grid th, .timetable-grid td {
@@ -426,6 +464,25 @@ label {
 
     .subject-list {
         grid-template-columns: 1fr;
+    }
+
+    .subject-picker-content {
+        max-height: 90vh;
+        padding: 15px;
+    }
+    
+    .subject-list {
+        max-height: calc(90vh - 150px);
+    }
+    
+    .subject-picker-content > button {
+        position: sticky;
+        bottom: 0;
+        background: var(--bg-secondary);
+        z-index: 1;
+        padding: 12px 20px;
+        width: 100%;
+        box-sizing: border-box;
     }
 }
 
@@ -502,6 +559,11 @@ label {
                 </div>
             </div>
         </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>Made with ❤️ by <a href="https://github.com/casper-bug" target="_blank">casper-bug</a></p>
+        </footer>
     </div>
 
     <!-- Subject Picker Modal -->
@@ -567,14 +629,24 @@ label {
             newSubjectEntry.className = 'subject-entry';
             newSubjectEntry.innerHTML = `
                 <div class="color-indicator" style="background-color: ${color};"></div>
-                <input type="text" placeholder="Subject Name" class="subject-name" value="Subject ${subjects.length + 1}">
-                <label>Min %:</label>
-                <input type="number" placeholder="Min %" class="min-percentage small-input" min="0" max="100" value="75">
-                <label>Total:</label>
-                <input type="number" placeholder="Total" class="total-classes small-input" min="1" value="0">
-                <label>Present:</label>
-                <input type="number" placeholder="Present" class="attended-classes small-input" min="0" value="0">
-                <span class="bunk-status"></span>
+                <div class="input-group">
+                    <input type="text" placeholder="Subject Name" class="subject-name" value="Subject ${subjects.length + 1}">
+                </div>
+                <div class="input-group">
+                    <label>Min %:</label>
+                    <input type="number" placeholder="Min %" class="min-percentage small-input" min="0" max="100" value="75">
+                </div>
+                <div class="input-group">
+                    <label>Total:</label>
+                    <input type="number" placeholder="Total" class="total-classes small-input" min="1" value="0">
+                </div>
+                <div class="input-group">
+                    <label>Present:</label>
+                    <input type="number" placeholder="Present" class="attended-classes small-input" min="0" value="0">
+                </div>
+                <div class="input-group">
+                    <span class="bunk-status"></span>
+                </div>
                 <button class="remove-subject-btn" onclick="removeSubject(this)">✕</button>
             `;
             
@@ -992,14 +1064,24 @@ label {
             newSubjectEntry.className = 'subject-entry';
             newSubjectEntry.innerHTML = `
                 <div class="color-indicator" style="background-color: ${color};"></div>
-                <input type="text" placeholder="Subject Name" class="subject-name" value="${name}">
-                <label>Min %:</label>
-                <input type="number" placeholder="Min %" class="min-percentage small-input" min="0" max="100" value="75">
-                <label>Total:</label>
-                <input type="number" placeholder="Total" class="total-classes small-input" min="1" value="${totalClasses}">
-                <label>Present:</label>
-                <input type="number" placeholder="Present" class="attended-classes small-input" min="0" value="${attendedClasses}">
-                <span class="bunk-status"></span>
+                <div class="input-group">
+                    <input type="text" placeholder="Subject Name" class="subject-name" value="${name}">
+                </div>
+                <div class="input-group">
+                    <label>Min %:</label>
+                    <input type="number" placeholder="Min %" class="min-percentage small-input" min="0" max="100" value="75">
+                </div>
+                <div class="input-group">
+                    <label>Total:</label>
+                    <input type="number" placeholder="Total" class="total-classes small-input" min="1" value="${totalClasses}">
+                </div>
+                <div class="input-group">
+                    <label>Present:</label>
+                    <input type="number" placeholder="Present" class="attended-classes small-input" min="0" value="${attendedClasses}">
+                </div>
+                <div class="input-group">
+                    <span class="bunk-status"></span>
+                </div>
                 <button class="remove-subject-btn" onclick="removeSubject(this)">✕</button>
             `;
             
