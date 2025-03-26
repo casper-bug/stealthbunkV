@@ -49,9 +49,6 @@ StealthBunk V2 is a web application designed to help students manage their atten
 - **CSS3**: For styling, including a dark theme and responsive design.
 - **JavaScript**: For handling the logic, calculations, and dynamic updates.
 
-## Contributing
--Contributions are welcome! If you have any suggestions, bug reports, or feature requests, feel free to:
-
 ## Acknowledgments
 - DeepSeek and Claude Sonnet 3.7 used for the code
 - **Google Fonts** for the use of the "Inter" font.
