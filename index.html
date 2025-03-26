@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -275,29 +275,49 @@ button:hover {
     padding: 20px;
     border-radius: 12px;
     width: 90%;
-    max-width: 500px;
+    max-width: 600px;
     box-shadow: var(--card-shadow);
 }
 
 .subject-list {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
     margin: 15px 0;
 }
 
 .subject-option {
     display: flex;
     align-items: center;
-    padding: 10px;
+    padding: 10px 15px;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s ease;
+    white-space: nowrap;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 5px;
 }
 
 .subject-option:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.subject-option .color-indicator {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.subject-option span {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .clear-subject {
@@ -771,7 +791,7 @@ label {
                 option.style.backgroundColor = subject.color + '40';
                 option.innerHTML = `
                     <div class="color-indicator" style="background-color: ${subject.color};"></div>
-                    <span>${subject.name}</span>
+                    <span title="${subject.name}">${subject.name}</span>
                 `;
                 
                 option.addEventListener('click', function() {
