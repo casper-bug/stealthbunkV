@@ -1,4 +1,6 @@
-# StealthBunk V2
+# StealthBunk V2 
+
+**Disclaimer: I wont be responsible for any issues in attendance cause by errors in calculation.**
 
 StealthBunk V2 is a web application designed to help students manage their attendance and plan their study schedule effectively. By inputting subject details and creating a weekly timetable, students can calculate which days they can safely bunk without risking their attendance percentage.
 
