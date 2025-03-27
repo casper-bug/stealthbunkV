@@ -127,7 +127,7 @@ button:hover {
     padding: 15px;
     border-radius: 12px;
     transition: all 0.3s ease;
-    position: relative;
+    position: relative;  /* Add this line */
 }
 
 .subject-entry:hover {
@@ -207,10 +207,11 @@ button:hover {
     padding: 4px 10px;
     border-radius: 20px;
     font-size: 12px;
-    margin-left: 5px;
     font-weight: 500;
+    position: absolute;
+    bottom: 10px;  /* Adjust this value as needed */
+    left: 10px;    /* Adjust this value as needed */
 }
-
 .can-bunk-status {
     background: rgba(3, 218, 198, 0.2);
     color: var(--success);
@@ -652,7 +653,6 @@ label {
                 <div class="subject-header">
                     <div class="color-indicator" style="background-color: ${color};"></div>
                     <input type="text" placeholder="Subject Name" class="subject-name" value="Subject ${subjects.length + 1}">
-                    <span class="bunk-status"></span>
                     <button class="remove-subject-btn" onclick="removeSubject(this)">✕</button>
                 </div>
                 <div class="subject-inputs">
@@ -668,6 +668,8 @@ label {
                         <label>Classes Attended</label>
                         <input type="number" placeholder="Present" class="attended-classes small-input" min="0" value="0">
                     </div>
+                   </div>
+                    <span class="bunk-status"></span>
                 </div>
             `;
             
