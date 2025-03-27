@@ -653,7 +653,6 @@ label {
                 <div class="subject-header">
                     <div class="color-indicator" style="background-color: ${color};"></div>
                     <input type="text" placeholder="Subject Name" class="subject-name" value="Subject ${subjects.length + 1}">
-                    <button class="remove-subject-btn" onclick="removeSubject(this)">✕</button>
                 </div>
                 <div class="subject-inputs">
                     <div class="input-group">
@@ -669,7 +668,9 @@ label {
                         <input type="number" placeholder="Present" class="attended-classes small-input" min="0" value="0">
                     </div>
                    </div>
+                   <button class="remove-subject-btn" onclick="removeSubject(this)">✕</button>
                     <span class="bunk-status"></span>
+                    </div>
                 </div>
             `;
             
